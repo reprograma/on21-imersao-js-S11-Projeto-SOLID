@@ -12,10 +12,15 @@ class Survivor extends GameCharacter {
 		this.MAX_OF_HURTS = 3;
 		this.TOTAL_OF_ACTIONS = 3;
 
-		console.log(`Um sobrevivente de nome ${name} foi criado`);
-		register.survivors.push(`Um sobrevivente de nome ${name} foi criado`);
+		this.date = new Date();
+		register.survivors.push(
+			`${this.date.getHours()}:${this.date.getMinutes()}:${this.date.getSeconds()}:${this.date.getMilliseconds()}: Um sobrevivente de nome ${name} foi criado`
+		);
 	}
 }
 
-// const sobrevivente = new Survivor('Luara');
-console.log(sobrevivente);
+new Survivor('Luara');
+new Survivor('Maria');
+new Survivor('Josefa');
+console.log(register);
+// console.log(sobrevivente);
