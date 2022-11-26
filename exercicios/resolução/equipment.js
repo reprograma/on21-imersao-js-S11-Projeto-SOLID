@@ -1,2 +1,13 @@
+class Equipment {
+	name;
+	type;
 
-module.exports = Equipment;
+	constructor(name, type) {
+		this.name = name;
+		this.type = type;
+	}
+}
+
+module.exports = {
+	Equipment,
+};
