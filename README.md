@@ -148,12 +148,11 @@ O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi
 - Sobe de nível.
 - O nível do partida muda.
 - Partida finalizada.
-- O histórico da partida deve refletir em registros quando um sobrevivente adquire uma nova habilidade.
+- Um sobrevivente adquire uma nova habilidade.
 
 ## Extras
 #### Zumbis
 Cada zumbi inicia o jogo com um total de 0 ferimentos. Se um zumbi sofre 2 ferimentos, ele morre imediatamente; quaisquer ferimentos adicionais serão ignorados. Cada zumbi pode realizar 1 ação por turno.
-
 
 #### Partidas com zumbis
 Cada partida inicia com 2 zumbis para cada sobrevivente existente no jogo.
