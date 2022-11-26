@@ -148,7 +148,7 @@ O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi
 - Sobe de nível.
 - O nível do partida muda.
 - Partida finalizada.
-- O histórico da partida deve refletir em registros quando um sobrevivente adquire uma nova habilidade.
+- Um sobrevivente adquire uma nova habilidade.
 
 ## Extras
 #### Zumbis
