@@ -154,7 +154,6 @@ O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi
 #### Zumbis
 Cada zumbi inicia o jogo com um total de 0 ferimentos. Se um zumbi sofre 2 ferimentos, ele morre imediatamente; quaisquer ferimentos adicionais serão ignorados. Cada zumbi pode realizar 1 ação por turno.
 
-
 #### Partidas com zumbis
 Cada partida inicia com 2 zumbis para cada sobrevivente existente no jogo.
 
