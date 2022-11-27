@@ -5,6 +5,7 @@ const register = {
 	hurts: [],
 	dies: [],
 	abilities: [],
+	survivorsEquipments: [],
 	survivorsLevels: [],
 	gameLevel: [],
 	finalTime: '',
