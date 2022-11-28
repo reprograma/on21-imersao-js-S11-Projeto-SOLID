@@ -1,4 +1,5 @@
 class GameCharacter {
+  date;
   hurts = 0;
   alive = true;
   actions = 0;

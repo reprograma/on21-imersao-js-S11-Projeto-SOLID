@@ -8,6 +8,4 @@ class Equipment {
 	}
 }
 
-module.exports = {
-	Equipment,
-};
+module.exports = Equipment;
