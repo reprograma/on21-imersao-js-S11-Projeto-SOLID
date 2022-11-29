@@ -22,13 +22,19 @@ class Survivor extends GameCharacter {
 }
 
 //Ver possibilidade de criar uma super classe para as características dos sobreviventes
-class SurvivorLevel {
+class SurvivorUtils {
 	survivor;
 
 	constructor(survivor) {
 		if (survivor instanceof Survivor) {
 			this.survivor = survivor;
 		}
+	}
+}
+
+class SurvivorLevel extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
 	}
 
 	checkLevel() {
@@ -54,8 +60,7 @@ class SurvivorLevel {
 	}
 }
 
-class SurvivorEquipment {
-	survivor;
+class SurvivorEquipment extends SurvivorUtils {
 	handsSlot = 0;
 	bagSlot = 0;
 
@@ -63,9 +68,7 @@ class SurvivorEquipment {
 	MAX_OF_BAG_SLOTS = 5;
 
 	constructor(survivor) {
-		if (survivor instanceof Survivor) {
-			this.survivor = survivor;
-		}
+		super(survivor);
 	}
 
 	get equipments() {
