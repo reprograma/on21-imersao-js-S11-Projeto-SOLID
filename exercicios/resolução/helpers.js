@@ -1,8 +1,16 @@
-function FormatDate() {
-	const date = new Date();
-	const formattedDate = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`;
+const register = require("./register");
 
-	return formattedDate;
+function FormatDate() {
+  const date = new Date();
+  const formattedDate = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`;
+
+  return formattedDate;
 }
 
-module.exports = { FormatDate };
+function registerMessage(key, message) {
+  const date = FormatDate();
+
+  register[key].push(`${date}: ${message}`);
+}
+
+module.exports = { FormatDate, registerMessage };
