@@ -119,7 +119,7 @@ class SurvivorEquipment {
 			) {
 				registerMessage(
 					'survivorsEquipments',
-					`O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove}.`
+					`O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove.name}.`
 				);
 			}
 		}
