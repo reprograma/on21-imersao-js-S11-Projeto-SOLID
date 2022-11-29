@@ -27,7 +27,7 @@ class Survivor extends GameCharacter {
   }
 }
 
-class Survivor
+class Survivor {}
 
 //Ver possibilidade de criar uma super classe para as características dos sobreviventes
 class SurvivorLevel {
