@@ -20,10 +20,8 @@ class Survivor extends GameCharacter {
 
     this.date = FormatDate();
     //Criar função no helpers pra registrar
-    registerMessage("survivors");
-    register.survivors.push(
-      `${this.date}: Um sobrevivente de nome ${name} foi criado`
-    );
+
+    registerMessage("survivors", `Um sobrevivente de nome ${name} foi criado`);
   }
 }
 
@@ -51,13 +49,11 @@ class SurvivorLevel {
     } else {
       this.survivor.level = Level.Azul;
     }
-
     const updatedLevel = this.survivor.level;
     if (currentLevel !== updatedLevel) {
-      const formattedDate = FormatDate();
-
-      register.survivorsLevels.push(
-        `${formattedDate}: O sobrevivente de nome ${this.survivor.name} subiu para o nível ${this.survivor.level}`
+      registerMessage(
+        "survivorsLevels",
+        `O sobrevivente de nome ${this.survivor.name} subiu para o nível ${this.survivor.level}`
       );
     }
   }
@@ -87,21 +83,20 @@ class SurvivorEquipment {
   addEquipment(equipment) {
     if (equipment instanceof Equipment) {
       if (this.handsSlot < this.MAX_OF_HANDS_SLOTS) {
-        // Guardar na mão
         this.survivor.handsEquipments.push(equipment);
         this.handsSlot++;
-        register.survivorsEquipments.push(
-          `${formattedDate}: O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment} no slot das mãos.`
+        registerMessage(
+          "survivorsEquipments",
+          `O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment.name} no slot das mãos.`
         );
       } else if (this.bagSlot < this.MAX_OF_BAG_SLOTS) {
-        // Guardar na bag
         this.survivor.bagEquipments.push(equipment);
         this.bagSlot++;
-        register.survivorsEquipments.push(
-          `${formattedDate}: O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment} no slot das reservas.`
+        registerMessage(
+          "survivorsEquipments",
+          `O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment.name} no slot das reservas.`
         );
       } else {
-        // Informar que precisa descartar alguma arma
         console.log(
           "Você está com seus slots cheios. Escolha um equipamento para remover antes de adicionar um novo."
         );
@@ -113,7 +108,7 @@ class SurvivorEquipment {
   removeEquipment(equipmentToRemove) {
     if (equipmentToRemove instanceof Equipment) {
       const qteHandsEquipments = this.survivor.handsEquipments.length;
-      const qteBagsEquipments = this.survivor.bagEquipments.length;
+      const qteBagEquipments = this.survivor.bagEquipments.length;
 
       this.survivor.handsEquipments = this.survivor.handsEquipments.filter(
         (equipment) => equipment !== equipmentToRemove
@@ -125,10 +120,11 @@ class SurvivorEquipment {
 
       if (
         qteHandsEquipments !== this.survivor.handsEquipments.length ||
-        qteBagsEquipments !== this.survivor.bagEquipments.length
+        qteBagEquipments !== this.survivor.bagEquipments.length
       ) {
-        register.survivorsEquipments.push(
-          `${formattedDate}: O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove}.`
+        registerMessage(
+          "survivorsEquipments",
+          `O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove.name}.`
         );
       }
 
@@ -138,4 +134,5 @@ class SurvivorEquipment {
 }
 
 // Instanciar tudo em um único arquivo (index ou main, por exemplo)
+
 module.exports = { Survivor, SurvivorLevel, SurvivorEquipment };
