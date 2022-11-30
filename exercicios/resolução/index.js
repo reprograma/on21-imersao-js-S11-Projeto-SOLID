@@ -8,9 +8,20 @@ const AbilitiesTree = require('./abilitiesTree');
 const Equipment = require('./equipment');
 const register = require('./register');
 
-const sobrevivente1 = new Survivor('Luara');
+const abilitiesLevelYellow1 = ['+1 haduke'];
+const abilitiesLevelOrange1 = ['+1 ação', 'tesouro escondido'];
+const abilitiesLevelRed1 = [
+	'+1 vida',
+	'+1 equipamento em mãos',
+	'+1 dano',
+];
 
-const arvoreDeHabilidades1 = new AbilitiesTree();
+const sobrevivente1 = new Survivor('Luara');
+const arvoreDeHabilidades1 = new AbilitiesTree(
+	abilitiesLevelYellow1,
+	abilitiesLevelOrange1,
+	abilitiesLevelRed1
+);
 
 const sobrevivente_arvore = new SurvivorAbilitiesTree(
 	sobrevivente1,
@@ -36,9 +47,6 @@ sobrevivente_arvore.unlockAbilities();
 // equipamentos_sobrevivente1.addEquipment(equipamento1);
 // equipamentos_sobrevivente1.removeEquipment(equipamento1);
 // equipamentos_sobrevivente1.removeEquipment(equipamento2);
-
-
-
 
 // console.log(register);
 console.log(sobrevivente1.unlockedAbilities);
