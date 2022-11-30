@@ -7,6 +7,7 @@ const register = {
 	abilities: [],
 	survivorsEquipments: [],
 	survivorsLevels: [],
+	actions: [],
 	gameLevel: [],
 	finalTime: '',
 };
