@@ -119,7 +119,7 @@ Quando um Sobrevivente avança para um nível específico, ele pode desbloquear 
 
 No nível Amarelo, apenas a habilidade **+1 Ação** deve estar disponível, então ela será desbloqueada; um Sobrevivente que tenha **+1 Ação** deve ter uma ação adicional (total de 4). 
 
-⛔ **Exemplos de habilidades potenciais**: 
+**Exemplos de habilidades potenciais**: 
 
 - +1 Dano;
 - Tesouro escondido (permite carregar mais um equipamento);
@@ -135,7 +135,7 @@ No nível Amarelo, apenas a habilidade **+1 Ação** deve estar disponível, ent
 - Ao alcançar Azul novamente (43 + 43 = 86 no total), uma segunda habilidade Vermelha é desbloqueada.
 - Um sobrevivente pode reiniciar a árvore uma segunda vez, desbloqueando sua última habilidade Vermelha com (**43 + 43 + 43 = 129 no total**) de experiência.
 
-**O JOGO PODE ACABAR QUANDO UM SOBREVIVENTE CHEGA NO 129**
+⛔ **O JOGO PODE ACABAR QUANDO UM SOBREVIVENTE CHEGA NO 150**
 
 #### Registros
 O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi jogado. Registros relevantes:
