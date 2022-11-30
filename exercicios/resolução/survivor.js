@@ -2,9 +2,12 @@ const { registerMessage } = require('./helpers');
 const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
+const AbilitiesTree = require('./abilitiesTree');
 
 class Survivor extends GameCharacter {
 	name;
+	abilitiesTree;
+	unlockedAbilities = [];
 	handsEquipments = [];
 	bagEquipments = [];
 	points = 0;
@@ -21,7 +24,6 @@ class Survivor extends GameCharacter {
 	}
 }
 
-//Ver possibilidade de criar uma super classe para as características dos sobreviventes
 class SurvivorUtils {
 	survivor;
 
@@ -129,4 +131,42 @@ class SurvivorEquipment extends SurvivorUtils {
 	}
 }
 
-module.exports = { Survivor, SurvivorLevel, SurvivorEquipment };
+class SurvivorAbilitiesTree extends SurvivorUtils {
+	constructor(survivor, abilitiesTree) {
+		if (abilitiesTree instanceof AbilitiesTree) {
+			super(survivor);
+			this.survivor.abilitiesTree = abilitiesTree;
+		}
+	}
+
+	addAbility(abilityLevelName) {
+		for (
+			let i = 0;
+			i < this.survivor.abilitiesTree[abilityLevelName].length;
+			i++
+		) {
+			const currentAbility = this.survivor.abilitiesTree[abilityLevelName][i];
+			if (!this.survivor.unlockedAbilities.includes(currentAbility)) {
+				this.survivor.unlockedAbilities.push(currentAbility);
+				return;
+			}
+		}
+	}
+
+	unlockAbilities() {
+		if (this.survivor.level === Level.Amarelo) {
+			this.addAbility('abilitiesLevelYellow');
+		} else if (this.survivor.level === Level.Laranja) {
+			this.addAbility('abilitiesLevelOrange');
+		} else if (this.survivor.level === Level.Vermelho) {
+			this.addAbility('abilitiesLevelRed');
+		}
+	}
+}
+
+module.exports = {
+	Survivor,
+	SurvivorLevel,
+	SurvivorEquipment,
+	SurvivorAbilitiesTree,
+};
