@@ -148,6 +148,10 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
 			const currentAbility = this.survivor.abilitiesTree[abilityLevelName][i];
 			if (!this.survivor.unlockedAbilities.includes(currentAbility)) {
 				this.survivor.unlockedAbilities.push(currentAbility);
+				registerMessage(
+					'abilities',
+					`A habilidade ${currentAbility} foi adicionada ao sobrevivente de nome ${this.survivor.name}`
+				);
 				return;
 			}
 		}
@@ -164,9 +168,36 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
 	}
 }
 
+class SurvivorHurts extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
+	}
+
+	getHurt() {
+		if (this.survivor.alive) {
+			this.survivor.hurts++;
+			registerMessage(
+				'hurts',
+				`O sobrevivente de nome ${this.survivor.name} se feriu.`
+			);
+			if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
+				this.survivor.alive = false;
+				console.log(
+					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+				);
+				registerMessage(
+					'dies',
+					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+				);
+			}
+		}
+	}
+}
+
 module.exports = {
 	Survivor,
 	SurvivorLevel,
 	SurvivorEquipment,
 	SurvivorAbilitiesTree,
+	SurvivorHurts,
 };
