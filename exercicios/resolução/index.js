@@ -4,6 +4,7 @@ const {
 	SurvivorEquipment,
 	SurvivorAbilitiesTree,
 	SurvivorHurts,
+	SurvivorActions,
 } = require('./survivor');
 const AbilitiesTree = require('./abilitiesTree');
 const Equipment = require('./equipment');
@@ -48,8 +49,12 @@ sobrevivente_arvore.unlockAbilities();
 const sobrevivente_ferimento1 = new SurvivorHurts(sobrevivente1);
 sobrevivente_ferimento1.getHurt();
 sobrevivente_ferimento1.getHurt();
-sobrevivente_ferimento1.getHurt();
-sobrevivente_ferimento1.getHurt();
+
+const action1 = new SurvivorActions(sobrevivente1);
+action1.doAction();
+action1.doAction();
+action1.doAction();
+action1.doAction();
 
 console.log(register);
 // console.log(sobrevivente1.unlockedAbilities);
