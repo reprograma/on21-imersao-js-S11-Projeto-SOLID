@@ -1,4 +1,4 @@
-class GameCharacter {
+class Character {
   date;
   hurts = 0;
   alive = true;
@@ -8,4 +8,4 @@ class GameCharacter {
   TOTAL_OF_ACTIONS;
 }
 
-module.exports = GameCharacter;
+module.exports = Character;
