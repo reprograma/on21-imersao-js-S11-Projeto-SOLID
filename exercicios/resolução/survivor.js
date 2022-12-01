@@ -230,14 +230,14 @@ class SurvivorHurts extends SurvivorUtils {
 
 			} else if (this.survivor.bagEquipments.length) {
 				lostEquipments = this.survivor.bagEquipments.pop()
+				registerMessage(
+					'hurts',
+					`Survivor ${this.survivor.name} got hurt and lost equipment ${lostEquipments.name}.`
+				);
 			} else {
 				console.log('No more equipments.')
 			}
 
-			registerMessage(
-				'hurts',
-				`Survivor ${this.survivor.name} got hurt and lost equipment ${lostEquipments}.`
-			);
 			if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
 				this.survivor.alive = false;
 				console.log(
@@ -257,12 +257,14 @@ class SurvivorActions extends SurvivorUtils {
 		super(survivor);
 	}
 
-	attackZombie() {
-		this.survivor.points++
-		registerMessage(
-			'attackZombie',
-			`Survivor ${this.survivor.name} killed a Zombie.`
-		);
+	attackZombie(zombie) {
+		if (zombie instanceof Zombie) {
+			this.survivor.points++
+			registerMessage(
+				'attackZombie',
+				`Survivor ${this.survivor.name} killed ${zombie.name}.`
+			);
+		}
 	}
 
 	doAction() {

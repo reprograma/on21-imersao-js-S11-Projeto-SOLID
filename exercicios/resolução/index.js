@@ -40,8 +40,8 @@ const survivorAction = new SurvivorActions(survivor);
 
 survivorTree.unlockAbilities();
 
-survivorAction.attackZombie();
-survivorAction.attackZombie();
+survivorAction.attackZombie(zombie1);
+survivorAction.attackZombie(zombie2);
 
 
 survivor.points = 202
