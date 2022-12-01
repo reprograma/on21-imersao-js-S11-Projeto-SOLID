@@ -1,17 +1,19 @@
-const { FormatDate, registerMessage } = require("./helpers");
-const Level = require("./levels");
-const GameCharacter = require("./character");
-const Equipment = require("./equipment");
-const AbilitiesTree = require('./abilitiesTree')
+
+const { registerMessage } = require('./helpers');
+const Level = require('./levels');
+const GameCharacter = require('./character');
+const Equipment = require('./equipment');
+const AbilitiesTree = require('./abilitiesTree');
 
 class Survivor extends GameCharacter {
-  name;
-  abilitiesTree;
-  unlockedAbilities = []
-  handsEquipments = [];
-  bagEquipments = [];
-  points = 0;
-  level = Level.Azul;
+	name;
+	abilitiesTree;
+	unlockedAbilities = [];
+	handsEquipments = [];
+	bagEquipments = [];
+	points = 0;
+	level = Level.Azul;
+
 
   constructor(name) {
     super();
@@ -31,15 +33,21 @@ class SurvivorUtils {
   constructor()
 }
 
-//Ver possibilidade de criar uma super classe para as características dos sobreviventes
-class SurvivorLevel {
-  survivor;
 
-  constructor(survivor) {
-    if (survivor instanceof Survivor) {
-      this.survivor = survivor;
-    }
-  }
+class SurvivorUtils {
+	survivor;
+
+	constructor(survivor) {
+		if (survivor instanceof Survivor) {
+			this.survivor = survivor;
+		}
+	}
+}
+
+class SurvivorLevel extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
+	}
 
   checkLevel() {
     const currentLevel = this.survivor.level;
@@ -63,19 +71,16 @@ class SurvivorLevel {
   }
 }
 
-class SurvivorEquipment {
-  survivor;
-  handsSlot = 0;
-  bagSlot = 0;
+class SurvivorEquipment extends SurvivorUtils {
+	handsSlot = 0;
+	bagSlot = 0;
 
   MAX_OF_HANDS_SLOTS = 2;
   MAX_OF_BAG_SLOTS = 5;
 
-  constructor(survivor) {
-    if (survivor instanceof Survivor) {
-      this.survivor = survivor;
-    }
-  }
+	constructor(survivor) {
+		super(survivor);
+	}
 
   get equipments() {
     return `
@@ -173,4 +178,92 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
   }
 }
 
-module.exports = { Survivor, SurvivorLevel, SurvivorEquipment };
+class SurvivorAbilitiesTree extends SurvivorUtils {
+	constructor(survivor, abilitiesTree) {
+		if (abilitiesTree instanceof AbilitiesTree) {
+			super(survivor);
+			this.survivor.abilitiesTree = abilitiesTree;
+		}
+	}
+
+	addAbility(abilityLevelName) {
+		for (
+			let i = 0;
+			i < this.survivor.abilitiesTree[abilityLevelName].length;
+			i++
+		) {
+			const currentAbility = this.survivor.abilitiesTree[abilityLevelName][i];
+			if (!this.survivor.unlockedAbilities.includes(currentAbility)) {
+				this.survivor.unlockedAbilities.push(currentAbility);
+				registerMessage(
+					'abilities',
+					`A habilidade ${currentAbility} foi adicionada ao sobrevivente de nome ${this.survivor.name}`
+				);
+				return;
+			}
+		}
+	}
+
+	unlockAbilities() {
+		if (this.survivor.level === Level.Amarelo) {
+			this.addAbility('abilitiesLevelYellow');
+		} else if (this.survivor.level === Level.Laranja) {
+			this.addAbility('abilitiesLevelOrange');
+		} else if (this.survivor.level === Level.Vermelho) {
+			this.addAbility('abilitiesLevelRed');
+		}
+	}
+}
+
+class SurvivorHurts extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
+	}
+
+	getHurt() {
+		if (this.survivor.alive) {
+			this.survivor.hurts++;
+			registerMessage(
+				'hurts',
+				`O sobrevivente de nome ${this.survivor.name} se feriu.`
+			);
+			if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
+				this.survivor.alive = false;
+				console.log(
+					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+				);
+				registerMessage(
+					'dies',
+					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+				);
+			}
+		}
+	}
+}
+
+class SurvivorActions extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
+	}
+
+	doAction() {
+		if (this.survivor.actions < this.survivor.TOTAL_OF_ACTIONS) {
+			this.survivor.actions++;
+			registerMessage(
+				'actions',
+				`O sobrevivente de nome ${this.survivor.name} realizou uma ação`
+			);
+		} else {
+			console.log('Esse sobrevivente já realizou o máximo de ações na rodada.');
+		}
+	}
+}
+
+module.exports = {
+	Survivor,
+	SurvivorLevel,
+	SurvivorEquipment,
+	SurvivorAbilitiesTree,
+	SurvivorHurts,
+	SurvivorActions,
+};
