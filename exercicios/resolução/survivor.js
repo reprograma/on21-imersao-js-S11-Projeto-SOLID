@@ -197,7 +197,7 @@ class SurvivorHurts extends SurvivorUtils {
       this.removeEquipment(this.survivor.handsEquipments[reduceEquipment]);
       registerMessage(
         'hurts',
-        `The survivor named ${this.survivor.name} was injured.`
+        `The survivor named ${this.survivor.name} was injured. As a result, your ability to carry equipment has been reduced by 1.`
       );
 
       if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
