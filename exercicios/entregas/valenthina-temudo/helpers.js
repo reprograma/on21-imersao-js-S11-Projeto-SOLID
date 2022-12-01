@@ -1,4 +1,4 @@
-const register = require("./register");
+const register = require('./register');
 
 function FormatDate() {
   const date = new Date();

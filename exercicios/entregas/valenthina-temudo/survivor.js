@@ -3,7 +3,6 @@ const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
-const { Equipment } = require('./register');
 
 class Survivor extends GameCharacter {
   name;
@@ -166,7 +165,7 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
       this.addAbility('abilitiesLevelRed');
     } else if (this.survivor.points == 150) {
       registerMessage(
-        'survivorLevels',
+        'survivorsLevels',
         `End of game. The survivor named ${this.survivor.name} won the game.`
       );
     }
@@ -191,12 +190,14 @@ class SurvivorHurts extends SurvivorUtils {
   getHurt() {
     if (this.survivor.alive) {
       this.survivor.hurts++;
-      const reduceEquipment = this.survivor.handsEquipments.length - 1;
-      this.removeEquipment(this.survivor.handsEquipments[reduceEquipment]);
+
       registerMessage(
         'hurts',
         `The survivor named ${this.survivor.name} was injured. As a result, your ability to carry equipment has been reduced by 1.`
       );
+
+      // const reduceEquipment = this.survivor.handsEquipments.length - 1;
+      // this.removeEquipment(this.survivor.handsEquipments[reduceEquipment]);
 
       if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
         this.survivor.alive = false;

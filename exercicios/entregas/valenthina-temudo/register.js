@@ -9,6 +9,7 @@ const register = {
   survivorsLevels: [],
   actions: [],
   gameLevel: [],
+  killZombie: [],
   finalTime: '',
 };
 
