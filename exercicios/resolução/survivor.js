@@ -1,4 +1,3 @@
-
 const { registerMessage } = require('./helpers');
 const Level = require('./levels');
 const GameCharacter = require('./character');
@@ -6,14 +5,13 @@ const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
 
 class Survivor extends GameCharacter {
-	name;
-	abilitiesTree;
-	unlockedAbilities = [];
-	handsEquipments = [];
-	bagEquipments = [];
-	points = 0;
-	level = Level.Azul;
-
+  name;
+  abilitiesTree;
+  unlockedAbilities = [];
+  handsEquipments = [];
+  bagEquipments = [];
+  points = 0;
+  level = Level.Azul;
 
   constructor(name) {
     super();
@@ -22,32 +20,26 @@ class Survivor extends GameCharacter {
     this.MAX_OF_HURTS = 3;
     this.TOTAL_OF_ACTIONS = 3;
 
-    this.date = FormatDate();
-    //Criar função no helpers pra registrar
-
-    registerMessage("survivors", `Um sobrevivente de nome ${name} foi criado`);
+    registerMessage('survivors', `Um sobrevivente de nome ${name} foi criado`);
   }
 }
 
 class SurvivorUtils {
-  constructor()
-}
+  survivor;
 
-
-class SurvivorUtils {
-	survivor;
-
-	constructor(survivor) {
-		if (survivor instanceof Survivor) {
-			this.survivor = survivor;
-		}
-	}
+  constructor(survivor) {
+    if (survivor instanceof Survivor) {
+      this.survivor = survivor;
+    }
+  }
 }
 
 class SurvivorLevel extends SurvivorUtils {
-	constructor(survivor) {
-		super(survivor);
-	}
+  constructor(survivor) {
+    super(survivor);
+  }
+
+  //⛔ Cada vez que o sobrevivente mata um zumbi, ele ganha 1 ponto de experiência, esses pontos são utilizados para subir de nível
 
   checkLevel() {
     const currentLevel = this.survivor.level;
@@ -64,7 +56,7 @@ class SurvivorLevel extends SurvivorUtils {
     const updatedLevel = this.survivor.level;
     if (currentLevel !== updatedLevel) {
       registerMessage(
-        "survivorsLevels",
+        'survivorsLevels',
         `O sobrevivente de nome ${this.survivor.name} subiu para o nível ${this.survivor.level}`
       );
     }
@@ -72,15 +64,15 @@ class SurvivorLevel extends SurvivorUtils {
 }
 
 class SurvivorEquipment extends SurvivorUtils {
-	handsSlot = 0;
-	bagSlot = 0;
+  handsSlot = 0;
+  bagSlot = 0;
 
   MAX_OF_HANDS_SLOTS = 2;
   MAX_OF_BAG_SLOTS = 5;
 
-	constructor(survivor) {
-		super(survivor);
-	}
+  constructor(survivor) {
+    super(survivor);
+  }
 
   get equipments() {
     return `
@@ -95,19 +87,19 @@ class SurvivorEquipment extends SurvivorUtils {
         this.survivor.handsEquipments.push(equipment);
         this.handsSlot++;
         registerMessage(
-          "survivorsEquipments",
+          'survivorsEquipments',
           `O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment.name} no slot das mãos.`
         );
       } else if (this.bagSlot < this.MAX_OF_BAG_SLOTS) {
         this.survivor.bagEquipments.push(equipment);
         this.bagSlot++;
         registerMessage(
-          "survivorsEquipments",
+          'survivorsEquipments',
           `O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment.name} no slot das reservas.`
         );
       } else {
         console.log(
-          "Você está com seus slots cheios. Escolha um equipamento para remover antes de adicionar um novo."
+          'Você está com seus slots cheios. Escolha um equipamento para remover antes de adicionar um novo.'
         );
         this.equipments();
       }
@@ -132,138 +124,120 @@ class SurvivorEquipment extends SurvivorUtils {
         qteBagEquipments !== this.survivor.bagEquipments.length
       ) {
         registerMessage(
-          "survivorsEquipments",
+          'survivorsEquipments',
           `O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove.name}.`
         );
       }
-
-      //Só pode registrar se o equipamento realmente foi removido
     }
   }
 }
 
 class SurvivorAbilitiesTree extends SurvivorUtils {
   constructor(survivor, abilitiesTree) {
-    super(survivor)
-    this.survivor.abilitiesTree = abilitiesTree
+    if (abilitiesTree instanceof AbilitiesTree) {
+      super(survivor);
+      this.survivor.abilitiesTree = abilitiesTree;
+    }
   }
 
-  addAbility(abilityLevelName)
+  addAbility(abilityLevelName) {
+    for (
+      let i = 0;
+      i < this.survivor.abilitiesTree[abilityLevelName].length;
+      i++
+    ) {
+      const currentAbility = this.survivor.abilitiesTree[abilityLevelName][i];
+      if (!this.survivor.unlockedAbilities.includes(currentAbility)) {
+        this.survivor.unlockedAbilities.push(currentAbility);
+        registerMessage(
+          'abilities',
+          `A habilidade ${currentAbility} foi adicionada ao sobrevivente de nome ${this.survivor.name}`
+        );
+        return;
+      }
+    }
 
-  unlockedAbilities(){
+    //⛔ Quando um sobrevivente avança além de 43 de experiência, ele permanece no Nível Vermelho, mas reinicia pela árvore de habilidades uma segunda vez
+
+    if (this.survivor.points == 50) {
+      console.log('Nível Amarelo: Não há mais habilidades disponíveis');
+    } else if (this.survivor.points == 61) {
+      this.addAbility('abilitiesLeveOrange');
+    } else if (this.survivor.points == 86) {
+      this.addAbility('abilitiesLevelRed');
+    } else if (this.survivor.points == 129) {
+      this.addAbility('abilitiesLevelRed');
+    } else if (this.survivor.points == 150) {
+      registerMessage(
+        'survivorLevels',
+        `Fim do jogo. O sobrevivente de nome ${this.survivor.name} ganhou o jogo.`
+      );
+    }
+  }
+
+  unlockAbilities() {
     if (this.survivor.level === Level.Amarelo) {
-      if(this.survivor.unlockedAbilities.length === 0) {
-
-        this.survivor.unlockedAbilities.push(
-          this.survivor.abilitiesTree.AbilitiesLevelYellow
-        )
-      }
+      this.addAbility('abilitiesLevelYellow');
     } else if (this.survivor.level === Level.Laranja) {
-      for(let i = 0; i < this.survivor.abilitiesTree.AbilitiesLevelOrange.length; i++) {
-        const currentAbility = this.survivor.abilitiesTree.AbilitiesLevelOrange[i]
-        if(!this.survivor.unlockedAbilities.includes(currentAbility)) {
-          this.survivor.unlockedAbilities.push(currentAbility)
-          return
-        }
-      }
+      this.addAbility('abilitiesLevelOrange');
     } else if (this.survivor.level === Level.Vermelho) {
-      for(let i = 0; i < this.survivor.abilitiesTree.AbilitiesLevelRed.length; i++) {
-        const currentAbility = this.survivor.abilitiesTree.AbilitiesLevelRed[i]
-        if(!this.survivor.unlockedAbilities.includes(currentAbility)) {
-          this.survivor.unlockedAbilities.push(currentAbility)
-          return
-        }
+      this.addAbility('abilitiesLevelRed');
+    }
+  }
+}
+
+class SurvivorHurts extends SurvivorUtils {
+  constructor(survivor) {
+    super(survivor);
+  }
+
+  getHurt() {
+    if (this.survivor.alive) {
+      this.survivor.hurts++;
+      registerMessage(
+        'hurts',
+        `O sobrevivente de nome ${this.survivor.name} se feriu.`
+      );
+
+      //⛔ A cada ferimento sofrido, o número de equipamentos que o sobrevivente pode carregar é reduzido em 1. Se o sobrevivente tiver mais equipamentos do que sua nova capacidade, ele deve descartar um deles.
+
+      if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
+        this.survivor.alive = false;
+        console.log(
+          `O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+        );
+        registerMessage(
+          'dies',
+          `O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
+        );
       }
     }
   }
 }
 
-class SurvivorAbilitiesTree extends SurvivorUtils {
-	constructor(survivor, abilitiesTree) {
-		if (abilitiesTree instanceof AbilitiesTree) {
-			super(survivor);
-			this.survivor.abilitiesTree = abilitiesTree;
-		}
-	}
-
-	addAbility(abilityLevelName) {
-		for (
-			let i = 0;
-			i < this.survivor.abilitiesTree[abilityLevelName].length;
-			i++
-		) {
-			const currentAbility = this.survivor.abilitiesTree[abilityLevelName][i];
-			if (!this.survivor.unlockedAbilities.includes(currentAbility)) {
-				this.survivor.unlockedAbilities.push(currentAbility);
-				registerMessage(
-					'abilities',
-					`A habilidade ${currentAbility} foi adicionada ao sobrevivente de nome ${this.survivor.name}`
-				);
-				return;
-			}
-		}
-	}
-
-	unlockAbilities() {
-		if (this.survivor.level === Level.Amarelo) {
-			this.addAbility('abilitiesLevelYellow');
-		} else if (this.survivor.level === Level.Laranja) {
-			this.addAbility('abilitiesLevelOrange');
-		} else if (this.survivor.level === Level.Vermelho) {
-			this.addAbility('abilitiesLevelRed');
-		}
-	}
-}
-
-class SurvivorHurts extends SurvivorUtils {
-	constructor(survivor) {
-		super(survivor);
-	}
-
-	getHurt() {
-		if (this.survivor.alive) {
-			this.survivor.hurts++;
-			registerMessage(
-				'hurts',
-				`O sobrevivente de nome ${this.survivor.name} se feriu.`
-			);
-			if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
-				this.survivor.alive = false;
-				console.log(
-					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
-				);
-				registerMessage(
-					'dies',
-					`O sobrevivente de nome ${this.survivor.name} passou dessa para melhor.`
-				);
-			}
-		}
-	}
-}
-
 class SurvivorActions extends SurvivorUtils {
-	constructor(survivor) {
-		super(survivor);
-	}
+  constructor(survivor) {
+    super(survivor);
+  }
 
-	doAction() {
-		if (this.survivor.actions < this.survivor.TOTAL_OF_ACTIONS) {
-			this.survivor.actions++;
-			registerMessage(
-				'actions',
-				`O sobrevivente de nome ${this.survivor.name} realizou uma ação`
-			);
-		} else {
-			console.log('Esse sobrevivente já realizou o máximo de ações na rodada.');
-		}
-	}
+  doAction() {
+    if (this.survivor.actions < this.survivor.TOTAL_OF_ACTIONS) {
+      this.survivor.actions++;
+      registerMessage(
+        'actions',
+        `O sobrevivente de nome ${this.survivor.name} realizou uma ação`
+      );
+    } else {
+      console.log('Esse sobrevivente já realizou o máximo de ações na rodada.');
+    }
+  }
 }
 
 module.exports = {
-	Survivor,
-	SurvivorLevel,
-	SurvivorEquipment,
-	SurvivorAbilitiesTree,
-	SurvivorHurts,
-	SurvivorActions,
+  Survivor,
+  SurvivorLevel,
+  SurvivorEquipment,
+  SurvivorAbilitiesTree,
+  SurvivorHurts,
+  SurvivorActions,
 };
