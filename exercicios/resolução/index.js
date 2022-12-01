@@ -4,57 +4,68 @@ const {
 	SurvivorEquipment,
 	SurvivorAbilitiesTree,
 	SurvivorHurts,
-	SurvivorActions,
+	SurvivorActions
 } = require('./survivor');
 const AbilitiesTree = require('./abilitiesTree');
 const Equipment = require('./equipment');
 const register = require('./register');
+const { Zombie } = require('./zombie')
 
-const abilitiesLevelYellow1 = ['+1 haduke'];
-const abilitiesLevelOrange1 = ['+1 ação', 'tesouro escondido'];
-const abilitiesLevelRed1 = ['+1 vida', '+1 equipamento em mãos', '+1 dano'];
+const zombie1 = new Zombie();
 
-const sobrevivente1 = new Survivor('Luara');
-const arvoreDeHabilidades1 = new AbilitiesTree(
+const zombie2 = new Zombie();
+
+const abilitiesLevelYellow1 = ['+1 Hadouken'];
+const abilitiesLevelOrange1 = ['+1 Action', 'Hidden treasure'];
+const abilitiesLevelRed1 = ['+1 Life', '+1 Equipment in hand', '+1 Damage'];
+
+const survivor = new Survivor('Mari');
+const abilitiesTree = new AbilitiesTree(
 	abilitiesLevelYellow1,
 	abilitiesLevelOrange1,
 	abilitiesLevelRed1
+)
+
+const survivorTree = new SurvivorAbilitiesTree(
+	survivor,
+	abilitiesTree
 );
 
-const sobrevivente_arvore = new SurvivorAbilitiesTree(
-	sobrevivente1,
-	arvoreDeHabilidades1
-);
+const survivorLevel = new SurvivorLevel(survivor);
 
-sobrevivente1.points = 6;
-const nível_sobrevivente1 = new SurvivorLevel(sobrevivente1);
-nível_sobrevivente1.checkLevel();
-sobrevivente_arvore.unlockAbilities();
+survivorTree.unlockAbilities();
 
-sobrevivente1.points = 20;
-nível_sobrevivente1.checkLevel();
-sobrevivente_arvore.unlockAbilities();
+survivorLevel.attackZombie();
+survivorLevel.attackZombie();
 
-sobrevivente1.points = 45;
-nível_sobrevivente1.checkLevel();
-sobrevivente_arvore.unlockAbilities();
 
-// const equipamento1 = new Equipment('agua', 'utilitarios');
-// const equipamento2 = new Equipment('frigideira', 'luta');
-// const equipamentos_sobrevivente1 = new SurvivorEquipment(sobrevivente1);
-// equipamentos_sobrevivente1.addEquipment(equipamento1);
-// equipamentos_sobrevivente1.removeEquipment(equipamento1);
-// equipamentos_sobrevivente1.removeEquipment(equipamento2);
+survivorLevel.checkLevel();
 
-const sobrevivente_ferimento1 = new SurvivorHurts(sobrevivente1);
-sobrevivente_ferimento1.getHurt();
-sobrevivente_ferimento1.getHurt();
+survivorTree.unlockAbilities();
 
-const action1 = new SurvivorActions(sobrevivente1);
+const equipment1 = new Equipment('Water', 'Utilities');
+const equipment2 = new Equipment('Axe', 'Fight');
+const equipment3 = new Equipment('Baseball bat', 'Fight');
+const equipment4 = new Equipment('Chainsaw', 'Fight');
+const survivorEquipments = new SurvivorEquipment(survivor);
+
+survivorEquipments.addEquipment(equipment1);
+survivorEquipments.addEquipment(equipment2);
+survivorEquipments.addEquipment(equipment3);
+survivorEquipments.addEquipment(equipment4);
+
+survivorEquipments.removeEquipment(equipment1);
+
+const survivorHurt = new SurvivorHurts(survivor);
+
+survivorHurt.getHurt();
+
+const action1 = new SurvivorActions(survivor);
 action1.doAction();
 action1.doAction();
-action1.doAction();
-action1.doAction();
 
+survivorLevel.checkLevel();
+survivorHurt.getHurt();
+survivorHurt.getHurt();
+survivorHurt.getHurt();
 console.log(register);
-// console.log(sobrevivente1.unlockedAbilities);
