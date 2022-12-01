@@ -1,13 +1,15 @@
 const { FormatDate, registerMessage } = require("./helpers");
-const register = require("./register");
 const Level = require("./levels");
 const GameCharacter = require("./character");
 const Equipment = require("./equipment");
+const AbilitiesTree = require('./abilitiesTree')
 
 class Survivor extends GameCharacter {
   name;
-  handsEquipments;
-  bagEquipments;
+  abilitiesTree;
+  unlockedAbilities = []
+  handsEquipments = [];
+  bagEquipments = [];
   points = 0;
   level = Level.Azul;
 
@@ -25,7 +27,9 @@ class Survivor extends GameCharacter {
   }
 }
 
-class Survivor {}
+class SurvivorUtils {
+  constructor()
+}
 
 //Ver possibilidade de criar uma super classe para as características dos sobreviventes
 class SurvivorLevel {
@@ -133,6 +137,40 @@ class SurvivorEquipment {
   }
 }
 
-// Instanciar tudo em um único arquivo (index ou main, por exemplo)
+class SurvivorAbilitiesTree extends SurvivorUtils {
+  constructor(survivor, abilitiesTree) {
+    super(survivor)
+    this.survivor.abilitiesTree = abilitiesTree
+  }
+
+  addAbility(abilityLevelName)
+
+  unlockedAbilities(){
+    if (this.survivor.level === Level.Amarelo) {
+      if(this.survivor.unlockedAbilities.length === 0) {
+
+        this.survivor.unlockedAbilities.push(
+          this.survivor.abilitiesTree.AbilitiesLevelYellow
+        )
+      }
+    } else if (this.survivor.level === Level.Laranja) {
+      for(let i = 0; i < this.survivor.abilitiesTree.AbilitiesLevelOrange.length; i++) {
+        const currentAbility = this.survivor.abilitiesTree.AbilitiesLevelOrange[i]
+        if(!this.survivor.unlockedAbilities.includes(currentAbility)) {
+          this.survivor.unlockedAbilities.push(currentAbility)
+          return
+        }
+      }
+    } else if (this.survivor.level === Level.Vermelho) {
+      for(let i = 0; i < this.survivor.abilitiesTree.AbilitiesLevelRed.length; i++) {
+        const currentAbility = this.survivor.abilitiesTree.AbilitiesLevelRed[i]
+        if(!this.survivor.unlockedAbilities.includes(currentAbility)) {
+          this.survivor.unlockedAbilities.push(currentAbility)
+          return
+        }
+      }
+    }
+  }
+}
 
 module.exports = { Survivor, SurvivorLevel, SurvivorEquipment };
