@@ -18,6 +18,8 @@ const zombie1 = new Zombie('zombie1');
 
 const zombie2 = new ZombieUtils(zombie1);
 zombie2.getHurt();
+zombie2.getHurt();
+zombie2.getHurt();
 
 const abilitiesLevelYellow1 = ['+1 haduke'];
 const abilitiesLevelOrange1 = ['+1 ação', 'tesouro escondido'];
