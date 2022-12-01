@@ -3,6 +3,7 @@ const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
+const { equipment } = require('./register');
 
 class Survivor extends GameCharacter {
   name;
@@ -38,8 +39,6 @@ class SurvivorLevel extends SurvivorUtils {
   constructor(survivor) {
     super(survivor);
   }
-
-  //⛔ Cada vez que o sobrevivente mata um zumbi, ele ganha 1 ponto de experiência, esses pontos são utilizados para subir de nível
 
   checkLevel() {
     const currentLevel = this.survivor.level;
@@ -194,12 +193,12 @@ class SurvivorHurts extends SurvivorUtils {
   getHurt() {
     if (this.survivor.alive) {
       this.survivor.hurts++;
+      const reduceEquipment = this.survivor.handsEquipments.length - 1;
+      this.removeEquipment(this.survivor.handsEquipments[reduceEquipment]);
       registerMessage(
         'hurts',
         `The survivor named ${this.survivor.name} was injured.`
       );
-
-      //⛔ A cada ferimento sofrido, o número de equipamentos que o sobrevivente pode carregar é reduzido em 1. Se o sobrevivente tiver mais equipamentos do que sua nova capacidade, ele deve descartar um deles.
 
       if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
         this.survivor.alive = false;
@@ -219,6 +218,8 @@ class SurvivorActions extends SurvivorUtils {
   constructor(survivor) {
     super(survivor);
   }
+
+  //⛔ Cada vez que o sobrevivente mata um zumbi, ele ganha 1 ponto de experiência, esses pontos são utilizados para subir de nível
 
   doAction() {
     if (this.survivor.actions < this.survivor.TOTAL_OF_ACTIONS) {
