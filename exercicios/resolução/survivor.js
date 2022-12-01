@@ -11,7 +11,7 @@ class Survivor extends GameCharacter {
   handsEquipments = [];
   bagEquipments = [];
   points = 0;
-  level = Level.Azul;
+  level = Level.Azul ;
 
   constructor(name) {
     super();
