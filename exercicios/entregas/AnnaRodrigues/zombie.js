@@ -35,8 +35,6 @@ class ZombieUtils  extends Zombie{
     );
     if (this.zombie.hurts >= this.zombie.MAX_OF_HURTS) 
         {
-            console.log("vida" ,this.zombie.hurts)
-            console.log(this.zombie.MAX_OF_HURTS)
             this.zombie.alive = false;
             console.log(
                 `O zumbi passou dessa para melhor.`
