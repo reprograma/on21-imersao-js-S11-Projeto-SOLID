@@ -3,7 +3,7 @@ const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
-const { equipment } = require('./register');
+const { Equipment } = require('./register');
 
 class Survivor extends GameCharacter {
   name;
@@ -156,8 +156,6 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
       }
     }
 
-    //⛔ Quando um sobrevivente avança além de 43 de experiência, ele permanece no Nível Vermelho, mas reinicia pela árvore de habilidades uma segunda vez
-
     if (this.survivor.points == 50) {
       console.log('Level Yellow: No more skills available');
     } else if (this.survivor.points == 61) {
@@ -219,8 +217,13 @@ class SurvivorActions extends SurvivorUtils {
     super(survivor);
   }
 
-  //⛔ Cada vez que o sobrevivente mata um zumbi, ele ganha 1 ponto de experiência, esses pontos são utilizados para subir de nível
-
+  killZombie() {
+    this.survivor.points++;
+    registerMessage(
+      'killZombie',
+      `The survivor named ${this.survivor.name} killed a zombie`
+    );
+  }
   doAction() {
     if (this.survivor.actions < this.survivor.TOTAL_OF_ACTIONS) {
       this.survivor.actions++;
