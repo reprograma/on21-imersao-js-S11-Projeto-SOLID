@@ -9,7 +9,6 @@ function formatDate() {
 
 function registerMessage(key, message) {
 	const date = formatDate();
-
 	register[key].push(`${date}: ${message}`);
 }
 
