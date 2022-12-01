@@ -3,7 +3,8 @@ const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
-const register = require('./register')
+const register = require('./register');
+const { Zombie } = require('./zombie');
 
 
 class Survivor extends GameCharacter {
@@ -13,7 +14,7 @@ class Survivor extends GameCharacter {
 	handsEquipments = [];
 	points = 0
 	bagEquipments = [];
-	level = Level.Azul;
+	level = Level.Blue;
 
 	constructor(name) {
 		super();
@@ -41,21 +42,17 @@ class SurvivorLevel extends SurvivorUtils {
 		super(survivor);
 	}
 
-	attackZombie() {
-		this.survivor.points += 20
-	}
-
 	checkLevel() {
 		const currentLevel = this.survivor.level;
 
 		if (this.survivor.points >= 42) {
-			this.survivor.level = Level.Vermelho;
+			this.survivor.level = Level.Red;
 		} else if (this.survivor.points >= 18) {
-			this.survivor.level = Level.Laranja;
+			this.survivor.level = Level.Orange;
 		} else if (this.survivor.points >= 6) {
-			this.survivor.level = Level.Amarelo;
+			this.survivor.level = Level.Yellow;
 		} else {
-			this.survivor.level = Level.Azul;
+			this.survivor.level = Level.Blue;
 		}
 
 		const updatedLevel = this.survivor.level;
@@ -135,6 +132,30 @@ class SurvivorEquipment extends SurvivorUtils {
 			}
 		}
 	}
+
+	updateSlots() {
+		if (this.MAX_OF_BAG_SLOTS > 0) {
+			this.MAX_OF_BAG_SLOTS--
+			if (this.survivor.bagEquipments.length > this.MAX_OF_BAG_SLOTS) {
+				console.log(
+					'Survivor lost the ability to carry one equipment.'
+				);
+			}
+		} else {
+			this.MAX_OF_HANDS_SLOTS--
+			if (this.survivor.handsEquipments.length > this.MAX_OF_HANDS_SLOTS) {
+				console.log(
+					'Survivor lost the ability to carry one equipment.'
+				);
+			}
+		}
+
+		registerMessage(
+			'survivorsEquipments',
+			`Survivor ${this.survivor.name} lost the ability to carry one equipment.`
+		);
+		return;
+	}
 }
 
 class SurvivorAbilitiesTree extends SurvivorUtils {
@@ -163,13 +184,32 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
 		}
 	}
 
+	unlockedRedLevelAbilities() {
+		if (this.survivor.points >= 61 && this.survivor.points < 86) {
+			this.addAbility("abilitiesLevelOrange");
+		} else if (this.survivor.points >= 86 && this.survivor.points < 129) {
+			this.addAbility("abilitiesLevelRed");
+		} else if (this.survivor.points >= 129 && this.survivor.points < 150) {
+			this.addAbility("abilitiesLevelRed");
+		} else if (this.survivor.points >= 150) {
+			registerMessage(
+				'finalTime',
+				`Survivor ${this.survivor.name} reached +150EXP and won the game!!!`
+			);
+		}
+	}
+
 	unlockAbilities() {
-		if (this.survivor.level === Level.Amarelo) {
+		if (this.survivor.level === Level.Yellow) {
 			this.addAbility('abilitiesLevelYellow');
-		} else if (this.survivor.level === Level.Laranja) {
+		} else if (this.survivor.level === Level.Orange) {
 			this.addAbility('abilitiesLevelOrange');
-		} else if (this.survivor.level === Level.Vermelho) {
+		} else if (this.survivor.level === Level.Red) {
 			this.addAbility('abilitiesLevelRed');
+		}
+
+		if (this.survivor.level === Level.Red) {
+			this.unlockedRedLevelAbilities();
 		}
 	}
 }
@@ -196,7 +236,7 @@ class SurvivorHurts extends SurvivorUtils {
 
 			registerMessage(
 				'hurts',
-				`Survivor ${this.survivor.name} got hurt and lost equipment ${lostEquipments.name}.`
+				`Survivor ${this.survivor.name} got hurt and lost equipment ${lostEquipments}.`
 			);
 			if (this.survivor.hurts >= this.survivor.MAX_OF_HURTS) {
 				this.survivor.alive = false;
@@ -207,8 +247,6 @@ class SurvivorHurts extends SurvivorUtils {
 					'dies',
 					`Survivor ${this.survivor.name} is gone to a better place - or not.`
 				);
-				const date = new Date();
-				register.finalTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 			}
 		}
 	}
@@ -217,6 +255,14 @@ class SurvivorHurts extends SurvivorUtils {
 class SurvivorActions extends SurvivorUtils {
 	constructor(survivor) {
 		super(survivor);
+	}
+
+	attackZombie() {
+		this.survivor.points++
+		registerMessage(
+			'attackZombie',
+			`Survivor ${this.survivor.name} killed a Zombie.`
+		);
 	}
 
 	doAction() {

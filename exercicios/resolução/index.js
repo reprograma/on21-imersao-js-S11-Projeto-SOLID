@@ -33,12 +33,18 @@ const survivorTree = new SurvivorAbilitiesTree(
 
 const survivorLevel = new SurvivorLevel(survivor);
 
+survivorLevel.checkLevel()
 survivorTree.unlockAbilities();
 
-survivorLevel.attackZombie();
-survivorLevel.attackZombie();
+const survivorAction = new SurvivorActions(survivor);
+
+survivorTree.unlockAbilities();
+
+survivorAction.attackZombie();
+survivorAction.attackZombie();
 
 
+survivor.points = 202
 survivorLevel.checkLevel();
 
 survivorTree.unlockAbilities();
@@ -55,6 +61,8 @@ survivorEquipments.addEquipment(equipment3);
 survivorEquipments.addEquipment(equipment4);
 
 survivorEquipments.removeEquipment(equipment1);
+survivorEquipments.updateSlots();
+survivorEquipments.removeEquipment(equipment2);
 
 const survivorHurt = new SurvivorHurts(survivor);
 
@@ -68,4 +76,7 @@ survivorLevel.checkLevel();
 survivorHurt.getHurt();
 survivorHurt.getHurt();
 survivorHurt.getHurt();
+survivorHurt.getHurt();
+
+
 console.log(register);

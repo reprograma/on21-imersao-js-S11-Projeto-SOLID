@@ -9,7 +9,8 @@ const register = {
 	survivorsLevels: [],
 	actions: [],
 	gameLevel: [],
-	finalTime: '',
+	attackZombie: [],
+	finalTime: [],
 };
 
 const date = new Date();
