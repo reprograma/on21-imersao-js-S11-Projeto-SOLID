@@ -21,31 +21,11 @@ class ZombieUtils  extends Zombie{
 		if (zombie instanceof Zombie) {
 			this.zombie = zombie;
 		}
-        registerMessage('zombie', `Um zombie de nome ${zombie.name} foi criado`);
+        registerMessage('zombie', `the name zombie ${zombie.name} was raised.`);
 
     }
 
- getHurt(){
-    if (this.zombie.alive) {
-		
-    this.zombie.hurts++;
-    registerMessage(
-        'zombie',
-        `O zumbi se feriu.`
-    );
-    if (this.zombie.hurts >= this.zombie.MAX_OF_HURTS) 
-        {
-            this.zombie.alive = false;
-            console.log(
-                `O zumbi passou dessa para melhor.`
-            );
-            registerMessage(
-                'dies',
-                `O zumbi passou dessa para melhor.`
-            );  
-        }
- }
-}
+ 
 }
 
 module.exports ={ Zombie ,ZombieUtils};

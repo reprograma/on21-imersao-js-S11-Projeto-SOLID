@@ -1,3 +1,5 @@
+const { registerMessage } = require('./helpers');
+
 class Equipment {
 	name;
 	type;
@@ -5,6 +7,12 @@ class Equipment {
 	constructor(name, type) {
 		this.name = name;
 		this.type = type;
+
+		registerMessage(
+			'equipment',
+			`O equipment name ${this.name} ,type ${this.type} .`
+		);
+
 	}
 }
 
