@@ -1,14 +1,12 @@
-import{
-	Survivor,
-	SurvivorLevel,
-	SurvivorEquipment,
-	SurvivorAbilitiesTree,
-	SurvivorHurts,
-	SurvivorActions,
-} from './survivor';
+import { Survivor } from './survivor/classSurvivor';
+import { SurvivorLevel } from './survivor/classSurvivorLevels.js';
+import { SurvivorEquipment } from './survivor/classSurvivorEquipment.js';
+import { SurvivorAbilitiesTree } from './survivor/classSurvivorAbilitiesTree.js';
+import { SurvivorHurts } from './survivor/classSurvivorHurts.js';
+import { SurvivorActions } from './survivor/classSurvivorActions.js';
 
-import { AbilitiesTree } from './propriedades/abilitiesTree.js';
-import Equipment from  './propriedades/classEquipment.js';
+import { AbilitiesTree } from './propriedades/abilitiesTree.js'; 
+import Equipment from './propriedades/classEquipment.js'; 
 import { register } from './propriedades/classRegister.js';
 
 
