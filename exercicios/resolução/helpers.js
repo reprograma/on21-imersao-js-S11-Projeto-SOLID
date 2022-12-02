@@ -14,3 +14,4 @@ function registerMessage(key, message) {
 }
 
 module.exports = { formatDate, registerMessage };
+

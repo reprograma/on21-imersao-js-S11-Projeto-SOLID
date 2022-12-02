@@ -9,3 +9,4 @@ class GameCharacter {
 }
 
 module.exports = GameCharacter;
+
