@@ -119,7 +119,7 @@ Quando um Sobrevivente avança para um nível específico, ele pode desbloquear 
 
 No nível Amarelo, apenas a habilidade **+1 Ação** deve estar disponível, então ela será desbloqueada; um Sobrevivente que tenha **+1 Ação** deve ter uma ação adicional (total de 4). 
 
-⛔ **Exemplos de habilidades potenciais**: 
+**Exemplos de habilidades potenciais**: 
 
 - +1 Dano;
 - Tesouro escondido (permite carregar mais um equipamento);
@@ -135,7 +135,7 @@ No nível Amarelo, apenas a habilidade **+1 Ação** deve estar disponível, ent
 - Ao alcançar Azul novamente (43 + 43 = 86 no total), uma segunda habilidade Vermelha é desbloqueada.
 - Um sobrevivente pode reiniciar a árvore uma segunda vez, desbloqueando sua última habilidade Vermelha com (**43 + 43 + 43 = 129 no total**) de experiência.
 
-**O JOGO PODE ACABAR QUANDO UM SOBREVIVENTE CHEGA NO 129**
+⛔ **O JOGO PODE ACABAR QUANDO UM SOBREVIVENTE CHEGA NO 150**
 
 #### Registros
 O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi jogado. Registros relevantes:
@@ -148,12 +148,11 @@ O jogo inclui um histórico contínuo de eventos que ocorreram à medida que foi
 - Sobe de nível.
 - O nível do partida muda.
 - Partida finalizada.
-- O histórico da partida deve refletir em registros quando um sobrevivente adquire uma nova habilidade.
+- Um sobrevivente adquire uma nova habilidade.
 
 ## Extras
 #### Zumbis
 Cada zumbi inicia o jogo com um total de 0 ferimentos. Se um zumbi sofre 2 ferimentos, ele morre imediatamente; quaisquer ferimentos adicionais serão ignorados. Cada zumbi pode realizar 1 ação por turno.
-
 
 #### Partidas com zumbis
 Cada partida inicia com 2 zumbis para cada sobrevivente existente no jogo.
