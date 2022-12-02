@@ -1,4 +1,4 @@
-import { registerMessage } from "./helpers";
+import { registerMessage } from "./helpers.js";
 
 export class Equipment {
 	name;

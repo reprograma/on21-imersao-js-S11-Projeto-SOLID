@@ -6,9 +6,7 @@ export class RemoveEquipment {
     {
         this.equipmentToRemove = equipmentToRemove;
         this.survivor = survivor;
-
-
-    }
+    }   
 
     removeEquipment(equipmentToRemove) {
         if (equipmentToRemove instanceof Equipment) {
@@ -35,3 +33,4 @@ export class RemoveEquipment {
         }
     }
 }
+

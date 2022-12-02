@@ -38,7 +38,7 @@ export class SurvivorUtils {
 				this.survivor.unlockedAbilities.push(currentAbility);
 				registerMessage(
 					'abilities',
-					`A habilidade ${currentAbility} foi adicionada ao sobrevivente ${this.survivvor.name}`
+					`A habilidade ${currentAbility} foi adicionada ao sobrevivente ${this.survivor.name}`
 					);
 					
 					return;

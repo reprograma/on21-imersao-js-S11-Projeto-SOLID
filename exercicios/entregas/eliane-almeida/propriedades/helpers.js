@@ -2,9 +2,9 @@ import { register } from './classRegister.js';
 
 export function formatDate() {
 	const date = new Date();
-	const formattedDate = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`;
+	const formatedDate = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`;
 
-	return formattedDate;
+	return formatedDate;
 }
 
 export function registerMessage(key, message) {

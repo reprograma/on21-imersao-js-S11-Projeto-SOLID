@@ -1,5 +1,5 @@
-import { GamerCharacter } from "../propriedades/classCharacter";
-import { registerMessage } from "../propriedades/helpers";
+import { GamerCharacter } from "../propriedades/classCharacter.js";
+import { registerMessage } from "../propriedades/helpers.js";
 
 export class Zombie extends GamerCharacter{
     name;

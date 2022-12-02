@@ -1,4 +1,5 @@
 import { registerMessage } from "./helpers.js";
+import { RemoveEquipment } from "./classRemoveEquipment.js";
 
 export class Hurts{
     character;

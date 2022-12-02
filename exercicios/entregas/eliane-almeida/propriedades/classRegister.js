@@ -1,5 +1,5 @@
 export const register = {
-	initialTime: '',
+	initialTime: [],
 	survivors: [],
 	equipment: [],
 	hurts: [],
