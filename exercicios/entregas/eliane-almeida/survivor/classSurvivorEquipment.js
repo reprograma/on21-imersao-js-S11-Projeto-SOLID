@@ -1,8 +1,8 @@
-import { SurvivorUtils } from "./classSurvivor";
-import { Equipment } from "../classEquipment";
-import { registerMessage } from "../helpers";
+import { SurvivorUtils } from "./classSurvivor.js";
+import { Equipment } from "../propriedades/classEquipment.js";
+import { registerMessage } from "../propriedades/helpers.js";
 
-class SurvivorEquipment extends SurvivorUtils {
+export class SurvivorEquipment extends SurvivorUtils {
 	handsSlot = 0;
 	bagSlot = 0;
 
@@ -37,36 +37,9 @@ class SurvivorEquipment extends SurvivorUtils {
 					`O sobrevivente de nome ${this.survivor.name} adicionou o equipamento ${equipment.name} no slot das reservas.`
 				);
 			} else {
-				console.log(
-					'Você está com seus slots cheios. Escolha um equipamento para remover antes de adicionar um novo.'
-				);
-				this.equipments();
+				return 	`Você está com seus slots cheios. Escolha um equipamento para remover antes de adicionar um novo. ${this.equipments()}` 	
 			}
 		}
 	}
 
-	removeEquipment(equipmentToRemove) {
-		if (equipmentToRemove instanceof Equipment) {
-			const qteHandsEquipments = this.survivor.handsEquipments.length;
-			const qteBagEquipments = this.survivor.bagEquipments.length;
-
-			this.survivor.handsEquipments = this.survivor.handsEquipments.filter(
-				(equipment) => equipment !== equipmentToRemove
-			);
-
-			this.survivor.bagEquipments = this.survivor.bagEquipments.filter(
-				(equipment) => equipment !== equipmentToRemove
-			);
-
-			if (
-				qteHandsEquipments !== this.survivor.handsEquipments.length ||
-				qteBagEquipments !== this.survivor.bagEquipments.length
-			) {
-				registerMessage(
-					'survivorsEquipments',
-					`O sobrevivente de nome ${this.survivor.name} removeu o equipamento ${equipmentToRemove.name}.`
-				);
-			}
-		}
-	}
 }

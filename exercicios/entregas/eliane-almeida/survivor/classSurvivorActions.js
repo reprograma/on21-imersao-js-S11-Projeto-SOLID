@@ -1,6 +1,7 @@
-import { registerMessage } from "../helpers";
+import { registerMessage } from "../propriedades/helpers.js";
+import { SurvivorUtils } from "./classSurvivor.js";
 
-class SurvivorActions extends SurvivorUtils {
+export class SurvivorActions extends SurvivorUtils {
 	constructor(survivor) {
 		super(survivor);
 	}

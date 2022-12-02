@@ -1,4 +1,4 @@
-const register = require('./classRegister');
+import { register } from './classRegister.js';
 
 export function formatDate() {
 	const date = new Date();

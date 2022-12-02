@@ -10,6 +10,7 @@ export const register = {
 	actions: [],
 	gameLevel: [],
 	finalTime: '',
+	zombie: []
 };
 
 // const date = new Date();

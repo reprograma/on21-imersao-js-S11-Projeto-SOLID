@@ -9,4 +9,3 @@ export class AbilitiesTree {
 		this.abilitiesLevelRed = abilitiesLevelRed;
 	}
 }
-

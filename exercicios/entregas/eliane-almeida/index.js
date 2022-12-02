@@ -1,14 +1,13 @@
-import { Survivor } from './survivor/classSurvivor';
+import { Survivor } from './survivor/classSurvivor.js';
 import { SurvivorLevel } from './survivor/classSurvivorLevels.js';
 import { SurvivorEquipment } from './survivor/classSurvivorEquipment.js';
 import { SurvivorAbilitiesTree } from './survivor/classSurvivorAbilitiesTree.js';
 import { SurvivorHurts } from './survivor/classSurvivorHurts.js';
 import { SurvivorActions } from './survivor/classSurvivorActions.js';
 
-import { AbilitiesTree } from './propriedades/abilitiesTree.js'; 
-import Equipment from './propriedades/classEquipment.js'; 
+import { AbilitiesTree } from './propriedades/classAbilitiesTree.js';
+import { Equipment } from './propriedades/classEquipment.js'; 
 import { register } from './propriedades/classRegister.js';
-
 
 const abilitiesLevelYellow1 = ['+1 haduke'];
 const abilitiesLevelOrange1 = ['+1 ação', 'tesouro escondido'];
@@ -39,12 +38,14 @@ sobrevivente1.points = 45;
 nível_sobrevivente1.checkLevel();
 sobrevivente_arvore.unlockAbilities();
 
+/** 
 const equipamento1 = new Equipment('agua', 'utilitarios');
 const equipamento2 = new Equipment('frigideira', 'luta');
 const equipamentos_sobrevivente1 = new SurvivorEquipment(sobrevivente1);
 equipamentos_sobrevivente1.addEquipment(equipamento1);
 equipamentos_sobrevivente1.removeEquipment(equipamento1);
 equipamentos_sobrevivente1.removeEquipment(equipamento2);
+*/
 
 const sobrevivente_ferimento1 = new SurvivorHurts(sobrevivente1);
 sobrevivente_ferimento1.getHurt();
@@ -57,4 +58,4 @@ action1.doAction();
 action1.doAction();
 
 console.log(register);
-console.log(sobrevivente1.unlockedAbilities);
+//console.log(sobrevivente1.unlockedAbilities);

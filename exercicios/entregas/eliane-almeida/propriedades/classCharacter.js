@@ -1,4 +1,4 @@
-export class GameCharacter {
+export class GamerCharacter {
     date;
     hurts = 0;
     alive = true;
