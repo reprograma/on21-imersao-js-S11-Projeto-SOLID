@@ -57,4 +57,6 @@ action1.doAction();
 action1.doAction();
 
 console.log(register);
+
 // console.log(sobrevivente1.unlockedAbilities);
+

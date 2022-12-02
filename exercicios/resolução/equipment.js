@@ -9,3 +9,4 @@ class Equipment {
 }
 
 module.exports = Equipment;
+
