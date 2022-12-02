@@ -1,0 +1,11 @@
+class GameCharacters{
+    typeof;
+    hurts = 0;
+    alive = true;
+    level = 0;
+
+    MAX_OF_HURTS;
+    TOTAL_OF_ACTIONS;
+}
+
+module.exports = { GameCharacters };
