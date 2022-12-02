@@ -3,6 +3,8 @@ const Level = require('./levels');
 const GameCharacter = require('./character');
 const Equipment = require('./equipment');
 const AbilitiesTree = require('./abilitiesTree');
+const Zombie = require('./zombie');
+
 
 class Survivor extends GameCharacter {
 	name;
@@ -164,7 +166,21 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
 			this.addAbility('abilitiesLevelOrange');
 		} else if (this.survivor.level === Level.Vermelho) {
 			this.addAbility('abilitiesLevelRed');
+			this.unlockedAfterRedLevel();
 		}
+	}
+
+	unlockedAfterRedLevel() {
+		if(this.survivor.level === Level.Vermelho){
+			if(this.survivor.level >= 61){
+				this.addAbility('abilitiesLevelOrange');
+			} else if (this.survivor.level >= 86){
+				this.addAbility('abilitiesLevelRed');
+			} else if(this.survivor.level >= 150) {
+				registerMessage('Winner', `Parabéns o sobrevivente ${this.survivor.name} chegou ao level máximo! Venceu o jogo !!!`)
+			}
+		}
+		return;
 	}
 }
 
@@ -210,7 +226,13 @@ class SurvivorActions extends SurvivorUtils {
 			console.log('Esse sobrevivente já realizou o máximo de ações na rodada.');
 		}
 	}
+
+	zombieKill (){
+		this.survivor.points++;
+		registerMessage('zombieKill', `O sobrevivente ${this.survivor.name} matou o Zumbi ganhando +1 experiência.`)
+	}
 }
+
 
 module.exports = {
 	Survivor,
