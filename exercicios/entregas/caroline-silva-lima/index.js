@@ -5,15 +5,14 @@ const {
 	SurvivorAbilitiesTree,
 	SurvivorHurts,
 	SurvivorActions,
-} = require('./survivor');
+} = require('./Survivor');
 const AbilitiesTree = require('./abilitiesTree');
-const Equipment = require('./equipment');
+const Equipment = require('./Equipment');
 const register = require('./register');
 
-const { Zombie, ZombieUtils }= require('./zombie');
+const { Zombie, ZombieUtils }= require('./Zombie');
 
 const zombie1 = new Zombie('zombie1');
-//console.log(zombie1)
 
 const zombie2 = new ZombieUtils(zombie1);
 zombie2.getHurt();
@@ -38,7 +37,6 @@ const survivor_tree = new SurvivorAbilitiesTree(
 
 const level_survivor1 = new SurvivorLevel(survivor1);
 
-//survivor1.points = 6;
 level_survivor1.killZombie();
 level_survivor1.killZombie();
 level_survivor1.killZombie();
@@ -46,7 +44,6 @@ level_survivor1.killZombie();
 level_survivor1.killZombie();
 level_survivor1.killZombie();
 level_survivor1.checkLevel();
-// survivor_tree.unlockAbilities();
 
 survivor1.points = 18;
 level_survivor1.checkLevel();
@@ -56,14 +53,12 @@ level_survivor1.checkLevel();
 
  survivor1.points = 61;
 level_survivor1.checkLevel();
-// survivor_tree.unlockAbilities();
 
 survivor1.points = 86;
 level_survivor1.checkLevel();
 survivor1.points = 129;
 level_survivor1.checkLevel();
 
-//survivor_tree.unlockAbilities();
 
 const equipment1 = new Equipment('agua', 'utilitarios');
 const equipment2 = new Equipment('frigideira', 'luta');
@@ -71,9 +66,7 @@ const equipment_survivor1 = new SurvivorEquipment(survivor1);
  equipment_survivor1.addEquipment(equipment1);
  equipment_survivor1.addEquipment(equipment2);
  
- //console.log(survivor1.handsEquipments)
  equipment_survivor1.removeEquipment(equipment1);
-// equipment_survivor1.removeEquipment(equipment2);
 
 const survivor_hurt1 = new SurvivorHurts(survivor1);
 survivor_hurt1.getHurt();
@@ -89,4 +82,3 @@ survivor1.points = 150;
 level_survivor1.checkLevel();
 
 console.log(register);
-// console.log(survivor1.unlockedAbilities);
