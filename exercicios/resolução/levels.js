@@ -1,8 +1,8 @@
 const Level = {
-	Azul: 'Azul',
-	Amarelo: 'Amarelo',
-	Laranja: 'Laranja',
-	Vermelho: 'Vermelho',
+  Azul: "Azul",
+  Amarelo: "Amarelo",
+  Laranja: "Laranja",
+  Vermelho: "Vermelho",
 };
 
 module.exports = Level;
