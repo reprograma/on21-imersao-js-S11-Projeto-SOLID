@@ -1,29 +1,40 @@
 const {
-	Survivor,
-	SurvivorLevel,
-	SurvivorEquipment,
-	SurvivorAbilitiesTree,
-	SurvivorHurts,
-	SurvivorActions,
-} = require('./survivor');
-const AbilitiesTree = require('./abilitiesTree');
-const Equipment = require('./equipment');
-const register = require('./register');
+  Survivor,
+  SurvivorLevel,
+  SurvivorEquipment,
+  SurvivorAbilitiesTree,
+  SurvivorHurts,
+  SurvivorActions,
+} = require("./survivor");
+const AbilitiesTree = require("./abilitiesTree");
+const Equipment = require("./equipment");
+const register = require("./register");
 
-const abilitiesLevelYellow1 = ['+1 haduke'];
-const abilitiesLevelOrange1 = ['+1 ação', 'tesouro escondido'];
-const abilitiesLevelRed1 = ['+1 vida', '+1 equipamento em mãos', '+1 dano'];
+const abilitiesLevelYellow = ["+1 haduke"];
+const abilitiesLevelOrange = ["+1 ação", "tesouro escondido"];
+const abilitiesLevelBlue = [
+  "+1 habilidade especial",
+  "+1 velocidade",
+  "+1 força",
+];
+const abilitiesLevelRed = [
+  "+1 vida",
+  "+1 equipamento em mãos",
+  "+1 dano",
+  "+1 otimismo",
+];
 
-const sobrevivente1 = new Survivor('Luara');
+const sobrevivente1 = new Survivor("Luara");
 const arvoreDeHabilidades1 = new AbilitiesTree(
-	abilitiesLevelYellow1,
-	abilitiesLevelOrange1,
-	abilitiesLevelRed1
+  abilitiesLevelYellow,
+  abilitiesLevelOrange,
+  abilitiesLevelBlue,
+  abilitiesLevelRed
 );
 
 const sobrevivente_arvore = new SurvivorAbilitiesTree(
-	sobrevivente1,
-	arvoreDeHabilidades1
+  sobrevivente1,
+  arvoreDeHabilidades1
 );
 
 sobrevivente1.points = 6;
