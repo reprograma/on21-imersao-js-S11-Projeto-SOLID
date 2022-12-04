@@ -34,6 +34,12 @@ class SurvivorUtils {
 			this.survivor = survivor;
 		}
 	}
+}
+
+class SurvivorLevel extends SurvivorUtils {
+	constructor(survivor) {
+		super(survivor);
+	}
 
 
 	addAbility(abilityLevelName) {
@@ -171,7 +177,6 @@ class SurvivorAbilitiesTree extends SurvivorUtils {
 			this.survivor.abilitiesTree = abilitiesTree;
 		}
 	}
-
 
 }
 
